@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="spring-beans-5.3.20-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/spring-framework-5.3.20-SNAPSHOT/libs/spring-beans-5.3.20-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/spring-framework-5.3.20-SNAPSHOT/libs/spring-context-5.3.20-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/spring-framework-5.3.20-SNAPSHOT/libs/spring-core-5.3.20-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/spring-framework-5.3.20-SNAPSHOT/libs/spring-expression-5.3.20-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/spring-framework-5.3.20-SNAPSHOT/libs/spring-jcl-5.3.20-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
