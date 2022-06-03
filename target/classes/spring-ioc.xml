@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <alias name="user" alias="haha"></alias>
+<!--    使用name也可以设置别名
+    使用空格或者， 或者； 设置多个别名
+-->
+    <bean class="hw.zixiao.beans.User" id="user"></bean>
+
+    <!--使用import可以导入其他spring饿xml配置文件-->
+<!--    <import resource="spring-ioc.xml"></import>-->
+
+
+    <!--******************依赖注入Start**********************-->
+    <!--基于setter方法的依赖注入-->
+    <bean class="hw.zixiao.beans.User" id="user2">
+        <property name="id" value="1"></property>
+        <property name="username" value="zixiao"></property>
+        <property name="realname" value="吴彦祖"></property>
+    </bean>
+    <!--******************依赖注入End**********************-->
+
+</beans>
