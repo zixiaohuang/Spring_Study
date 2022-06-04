@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <alias name="user" alias="haha"></alias>
@@ -20,6 +21,65 @@
         <property name="username" value="zixiao"></property>
         <property name="realname" value="吴彦祖"></property>
     </bean>
+
+<!--    基于构造函数的依赖注入
+    1.基于name属性设置构造函数参数
+    2.可以只有value属性
+    3.如果省略name属性，一定注意参数顺序
+    4。如果参数顺序错乱，可以使用name，还可以使用index
+-->
+
+    <bean class="hw.zixiao.beans.User" id="user3">
+        <constructor-arg name="id" value="1"></constructor-arg>
+        <constructor-arg name="username" value="zixiao"></constructor-arg>
+        <constructor-arg name="realname" value="刘德华"></constructor-arg>
+
+    </bean>
+
+
+    <!--复杂数据类型的依赖注入-->
+    <bean class="hw.zixiao.beans.Person" id="person">
+        <property name="id" value="1"></property>
+        <property name="name">
+            <null></null>
+        </property>
+        <property name="gender" value=""></property>
+        <!--引用外部bean-->
+        <property name="wife" ref="wife"></property>
+
+        <!--list注入：
+            如果泛型是基本数据类型<value>
+            如果泛型是对象<bean>
+        -->
+        <property name="hobbies">
+            <list>
+                <value>唱歌</value>
+                <value>跳舞</value>
+            </list>
+        </property>
+
+        <!--map注入
+         如果value是基本数据类型<entry key="1" value="Java"></entry>
+         如果value是对象value-ref
+        -->
+        <property name="course">
+            <map>
+                <entry key="1" value="Java"></entry>
+                <entry key="2" value="数据库"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean class="hw.zixiao.beans.Wife" id="wife">
+        <property name="name" value="迪丽热巴"></property>
+        <property name="age" value="18"></property>
+    </bean>
+
+    <!--使用p命名空间简化基于setter属性注入XML配置 头部加上命名空间 p命名空间不支持集合-->
+    <bean class="hw.zixiao.beans.Wife" id="wife2" p:age="18" p:name="杨幂"></bean>
+
+    <!--使用c命名空间简化基于构造函数的xml-->
+   <bean class="hw.zixiao.beans.Wife" id="wife3" c:age="18" c:name="林青霞"></bean>
     <!--******************依赖注入End**********************-->
 
 </beans>

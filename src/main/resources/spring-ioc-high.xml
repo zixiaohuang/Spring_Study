@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Bean加载顺序是从上到下，想先加载某个bean可以用dependence on-->
+    <bean class="hw.zixiao.beans.User" id="user" depends-on="wife"></bean>
+    <bean class="hw.zixiao.beans.Wife" id="wife"></bean>
+
+    <!--懒加载，不会在spring容器加载的时候加载bean 只有在用到的时候才加载-->
+<!--    <bean class="hw.zixiao.beans.Wife" id="wife2" lazy-init="true"></bean>-->
+
+    <!-- 作用域scope
+    singleton默认单例 同一个id始终只会创建一次bean 单例涉及线程安全问题
+    prototype多例
+    request\session\application\websocket-->
+<!--    <bean class="hw.zixiao.beans.Person" id="person" scope="prototype"></bean>-->
+
+    <!--使用静态化工厂方法实例化Bean-->
+<!--    <bean class="hw.zixiao.beans.Person" id="person2" factory-method="createPersonFactory"></bean>-->
+
+    <!--使用抽象工厂  需要指定factory-bean-->
+<!--    <bean class="hw.zixiao.beans.PersonFactory" id="personFactory"></bean>-->
+<!--    <bean class="hw.zixiao.beans.Person" id="person3"-->
+<!--          factory-bean="personFactory"-->
+<!--          factory-method="createPersonFactoryMethod"></bean>-->
+
+    <!--自动注入
+    byType 根据类型去自动匹配 当出现多个类型或者没匹配到类型则报错
+    byName 根据set方法的名字去自动匹配
+    constructor 根据构造器去匹配 优先会根据名字去匹配
+    假如名字没有匹配到，会优先根据类型
+    构造函数要跟IoC匹配，会根据构造函数的参数进行完整的匹配注入。如果构造函数参数Person(Wife wife3, User user)ioc容器里面必须要同时有wife和user
+    名字没有匹配到会根据类型匹配 类型假如出现多个会注入失败但不会报错，将会默认调用参数构造函数
+    当根据类型匹配到多个 可以使用 1。设置某个bean为主要 bean primary = "true" 2。autowire-candidate="false" 忽略注入
+    -->
+    <bean class="hw.zixiao.beans.Person" id="person4" autowire="byType">
+        <property name="name" value="枫花恋"></property>
+    </bean>
+
+    <bean class="hw.zixiao.beans.Person" id="person" init-method="initByConfig" destroy-method="destroyByConfig"></bean>
+
+    <!--配置第三方bean-->
+</beans>

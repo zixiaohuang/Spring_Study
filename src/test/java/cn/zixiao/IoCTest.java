@@ -1,5 +1,6 @@
 package cn.zixiao;
 
+import hw.zixiao.beans.Person;
 import hw.zixiao.beans.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +50,20 @@ public class IoCTest {
     public void test03() {
 
         User bean = ioc.getBean("user2", User.class);
+        System.out.println(bean);
+    }
+
+    @Test
+    public void test04() {
+
+        User bean = ioc.getBean("user3", User.class);
+        System.out.println(bean);
+    }
+
+    @Test
+    public void test05() {
+
+        Person bean = ioc.getBean("person", Person.class);
         System.out.println(bean);
     }
 }

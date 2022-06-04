@@ -9,6 +9,8 @@ public class User {
         return id;
     }
 
+    // 基于setter方法的依赖注入 对应的set方法的名字
+    // 比如 setId ->  name="id" setXX -> name="XX"
     public void setId(Integer id) {
         this.id = id;
     }
@@ -31,6 +33,12 @@ public class User {
 
     public User() {
         System.out.println("User已加载");
+    }
+
+    public User(Integer id, String username, String realname) {
+        this.id = id;
+        this.username = username;
+        this.realname = realname;
     }
 
     @Override
