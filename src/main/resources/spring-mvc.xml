@@ -37,5 +37,5 @@
     </bean>
 
     <!--视图控制器 立即访问-->
-    <mvc:view-controller path="/user/add" view-name="user/add"></mvc:view-controller>
+<!--    <mvc:view-controller path="/user/add" view-name="user/add"></mvc:view-controller>-->
 </beans>

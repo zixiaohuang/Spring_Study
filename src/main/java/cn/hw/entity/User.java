@@ -13,9 +13,9 @@ public class User {
     @NotNull(message = "id不能为空")
     @Min(value = 1, message = "id必须大于0")
     private Integer id;
-    @NotEmpty
-    @Length(min=4, max = 8)
-    @Pattern(regexp = "^[0-9a-zA-Z]+$")
+    @NotEmpty(message = "用户名不能为空")
+    @Length(min=4, max = 8, message = "用户名的长度必须在{min}和{max}之间")
+    @Pattern(regexp = "^[0-9a-zA-Z]+$", message = "用户名只能输入0-9或者a-z")
     private String username;
     @Past
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -24,9 +24,9 @@ public class User {
     private Double balance; //  ¥5000
     private String[] hobbies;
     @NumberFormat(pattern = "#,###.##")
-    @Range(min=2000, max = 1000000) // Size的范围是int 不能用于验证Double
+    @Range(min=2000, max = 1000000, message = "工资必须在{min}和{max}之间") // Size的范围是int 不能用于验证Double
     private Double salary; // 工资 10,000.00
-    @Range(min=0, max=100) // Range的范围是long 所以Range可以控制的范围更大
+    @Range(min=0, max=100, message = "任务完成度必须在") // Range的范围是long 所以Range可以控制的范围更大
     @NumberFormat(style = NumberFormat.Style.PERCENT)
     private Double taskCount; // 任务完成百分比 90%
 
