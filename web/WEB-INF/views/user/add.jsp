@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>>
+<% request.setAttribute("basePath", request.getContextPath()); %>
 <html>
 <head>
     <title>Title</title>
@@ -75,9 +76,16 @@
     <form:checkboxes path="hobbies" items="${list}"></form:checkboxes>
   </p>
   <p>
-    <form:button>提交</form:button>
+
+    <form:button><spring:message code="txt_Submit"></spring:message></form:button>
 <%--    <input type="submit" name="提交">--%>
   </p>
+  <spring:message code="txt_Hello"></spring:message>!
+  <div class="row">
+    <a class="col-md-6" href="${basePath}/usr/add/zh_CN">中文</a>
+    <a class="col-md-6" href="${basePath}/usr/add/en_US">English</a>
+  </div>
+  ${errMsg}
 </form:form>
 
 

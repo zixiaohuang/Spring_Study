@@ -1,19 +1,19 @@
 package cn.hw.controller;
 
 import cn.hw.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -35,10 +35,24 @@ import java.util.Map;
  *      3.在form标签上一定要加上ModelAttribute
  *      4.加上对应的form标签，必须都要以form：开头
  */
+
+/**
+ * 1。解决java的硬编码的国际化
+ *      1。在属性资源文件中加入需要国际化的硬编码内容
+ *      2。将MessageSource 自动注入进来
+ *      3。根据MessageSource getMessage 获取国际化内容
+ *         String code, 资源文件中的key
+ *         @Nullable Object[] args,  文本中的参数 可以用占位符的方式在资源文件文本中设置参数占位符 {0}方式
+ *         Locale locale 当前本地化语言
+ *
+ */
 @Controller
 public class UserController {
+    @Autowired
+    MessageSource messageSource;
+
     @PostMapping("/user")
-    public String add(@Valid User user, BindingResult result, Model model) {
+    public String add(@Valid User user, BindingResult result, Model model, Locale locale) {
         // 将错误信息取出来，输出到jsp页面
         if(result.hasErrors()) {
             // 存放错误信息：key=错误信息的属性名 value=错误信息 这样就有利于在jsp中分别取出${errors.id}
@@ -53,6 +67,9 @@ public class UserController {
                 errors.put(fieldError.getField(), fieldError.getDefaultMessage());
             }
             model.addAttribute("errors", errors);
+            System.out.println("errors happened");
+            model.addAttribute("errMsg", messageSource.getMessage("add_error", null, locale));
+//            model.addAttribute("errors", messageSource.getMessage());
             // 如果验证失败将请求重新转发到添加页面
             return "user/add";
         }
@@ -73,8 +90,9 @@ public class UserController {
     }
 
     @PostMapping("/form/user")
-    public String springformAdd(@Valid User user, BindingResult result, Model model) {
+    public String springformAdd(@Valid User user, BindingResult result, Model model, Locale locale) {
         if(result.hasErrors()) {
+            model.addAttribute("errMsg", messageSource.getMessage("add_error", null, locale));
             return "user/add";
         }
         System.out.println(user);
@@ -84,6 +102,19 @@ public class UserController {
     @GetMapping("/user/add")
     public String addView(User user, Model model) { // 自动new 一个User
 
+        return "user/add";
+    }
+
+    @RequestMapping("/usr/add/{language}_{country}")
+    public String changeLocale(User user,
+                               @PathVariable("language") String language,
+                               @PathVariable("country") String country,
+                               HttpServletRequest request,
+                               HttpServletResponse response,
+                               @Autowired SessionLocaleResolver localeResolver) {
+        System.out.println("language: " + language + ", country: " + country);
+        Locale local = new Locale(language, country);
+        localeResolver.setLocale(request, response, local);
         return "user/add";
     }
 }

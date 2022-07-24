@@ -10,10 +10,10 @@ import java.util.Arrays;
 import java.util.Date;
 
 public class User {
-    @NotNull(message = "id不能为空")
+    @NotNull
     @Min(value = 1, message = "id必须大于0")
     private Integer id;
-    @NotEmpty(message = "用户名不能为空")
+    @NotEmpty
     @Length(min=4, max = 8, message = "用户名的长度必须在{min}和{max}之间")
     @Pattern(regexp = "^[0-9a-zA-Z]+$", message = "用户名只能输入0-9或者a-z")
     private String username;

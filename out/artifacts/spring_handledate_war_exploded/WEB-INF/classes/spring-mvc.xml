@@ -38,4 +38,22 @@
 
     <!--视图控制器 立即访问-->
 <!--    <mvc:view-controller path="/user/add" view-name="user/add"></mvc:view-controller>-->
+
+    <!--设置国际化支持 配置国际化属性资源文件-->
+    <bean class="org.springframework.context.support.ResourceBundleMessageSource" id="messageSource">
+        <property name="basenames">
+            <array>
+                <value>i18n/login</value>
+            </array>
+        </property>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <!--使用SessionLocaleResolver 保持Locale的状态 会存Session中获取Locale对象-->
+    <bean class="org.springframework.web.servlet.i18n.SessionLocaleResolver" id="localeResolver"></bean>
+
+<!--    方式2：使用spring mvc提供的拦截器,接收local参数(en_US\zh_CN) 设置session中去-->
+<!--    <mvc:interceptors>-->
+<!--        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>-->
+<!--    </mvc:interceptors>-->
 </beans>
